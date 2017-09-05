@@ -1,3 +1,25 @@
+@import 'normalize.scss';
+
 body {
-  background-color: gray;
+  background-color: #f7f7f7;
+  #root {
+    .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      .board {
+        .TaskList {
+          .Adding {
+            display: flex;
+            align-items: center;
+            .plusBtn {
+              margin-top: 10px;
+            }
+          }
+        }
+
+      }
+    }
+  }
 }

@@ -1,21 +1,17 @@
 const initialState = [
-    'item1',
-    'item2'
+    'board1'
 ]
 export default function addItem(state = initialState, action) {
 
     switch (action.type) {
-        case 'ADD_ITEM':
+        case 'ADD_BOARD':
             return [
                 ...state,
                 action.item
             ];
             break;
-        case 'DELETE_ITEM':
-            return [
-                delete state.splice(action.item,1),
-            ];
-            break;
+        default:
+            return state;
     }
-    return state;
+
 }

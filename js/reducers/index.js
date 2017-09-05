@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import items from './items';
-import categories from './categories';
+import board from './board';
 
 export  default combineReducers(
     {
         items,
-        categories
+        board
     }
 )
