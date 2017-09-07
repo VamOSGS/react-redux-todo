@@ -6,6 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Snackbar from 'material-ui/Snackbar';
 
 class App extends Component {
     constructor(props) {
@@ -13,21 +14,22 @@ class App extends Component {
         this.addTask = this.addTask.bind(this);
         this.addBoard = this.addBoard.bind(this);
         this.state = {
-            validation: false
-        }
+            open: false,
+        };
     }
 
     addTask(i) {
+        console.log(i, this.refs.taskInput.props)
         let taskText = this.refs.taskInput.input.value;
         if (taskText) {
             this.props.onAddTask(taskText, i);
             this.refs.taskInput.input.value = null;
             this.setState({
-                validation: false
+                open:false
             })
         } else {
             this.setState({
-                validation: true
+                open:true
             })
         }
     }
@@ -35,12 +37,19 @@ class App extends Component {
     addBoard() {
         let boardText = this.refs.board.input.value;
         this.props.onAddBoard(boardText);
+        this.refs.board.input.value = null;
     }
 
     render() {
         // console.log(this.props.items.table);
         return (
             <div className='wrapper'>
+                <Snackbar
+                    open={this.state.open}
+                    message="Can't add empty task"
+                    autoHideDuration={2000}
+                    onRequestClose={this.handleRequestClose}
+                />
                 {this.props.items.table.map((item, i) => {
                     // item.tasks.push('hello')
                 })
@@ -62,9 +71,9 @@ class App extends Component {
                             </div>
                             <div className='Adding'>
                                 <TextField
-                                    errorText={this.state.validation ? "This field is required." : ''}
                                     hintText="Add Task"
                                     ref='taskInput'
+
                                 />
                                 <FloatingActionButton className='plusBtn' mini={true} onClick={() => {
                                     this.addTask(i)
@@ -78,6 +87,7 @@ class App extends Component {
                 )}
                 <div className='boardAdd'>
                     <TextField
+
                         hintText="Add Board"
                         ref='board'
                     />
