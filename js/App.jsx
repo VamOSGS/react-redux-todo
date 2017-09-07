@@ -11,17 +11,16 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.addTask = this.addTask.bind(this);
-        this.deleteTask = this.deleteTask.bind(this);
+        this.addBoard = this.addBoard.bind(this);
         this.state = {
             validation: false
         }
     }
 
-    addTask() {
+    addTask(i) {
         let taskText = this.refs.taskInput.input.value;
-        console.log( this.props)
         if (taskText) {
-            this.props.onAddTask(taskText);
+            this.props.onAddTask(taskText, i);
             this.refs.taskInput.input.value = null;
             this.setState({
                 validation: false
@@ -32,51 +31,60 @@ class App extends Component {
             })
         }
     }
+
     addBoard() {
-
-        this.props.onAddBoard();
-    }
-
-    deleteTask(id) {
-        this.props.onDeleteTask(id);
+        let boardText = this.refs.board.input.value;
+        this.props.onAddBoard(boardText);
     }
 
     render() {
-        console.log(this.props.board.map)
+        // console.log(this.props.items.table);
         return (
             <div className='wrapper'>
-                {this.props.board.map((board, i) =>
+                {this.props.items.table.map((item, i) => {
+                    // item.tasks.push('hello')
+                })
+                }
+                {this.props.items.table.map((item, i) =>
 
                     <div className='board' key={i}>
                         <div className='TaskList'>
                             <div>
                                 <List>
-                                    <Subheader>{board}</Subheader>
-                                    {this.props.items.map((item, i) => <ListItem key={i}
-                                        primaryText={item}
+                                    <Subheader className='header'>{item.name}</Subheader>
+
+                                    {item.tasks.map((item, i) => <ListItem key={i}
+                                                                           primaryText={item}
                                         />
                                     )}
                                 </List>
                                 <Divider/>
                             </div>
-
                             <div className='Adding'>
                                 <TextField
                                     errorText={this.state.validation ? "This field is required." : ''}
                                     hintText="Add Task"
                                     ref='taskInput'
                                 />
-                                <FloatingActionButton className='plusBtn' mini={true} onClick={this.addTask}>
+                                <FloatingActionButton className='plusBtn' mini={true} onClick={() => {
+                                    this.addTask(i)
+                                }}>
                                     <ContentAdd/>
                                 </FloatingActionButton>
                             </div>
-                            <FloatingActionButton onClick={this.addBoard} secondary={true}>
-                                <ContentAdd/>
-                            </FloatingActionButton>
                         </div>
 
                     </div>
                 )}
+                <div className='boardAdd'>
+                    <TextField
+                        hintText="Add Board"
+                        ref='board'
+                    />
+                    <FloatingActionButton onClick={this.addBoard} secondary={true}>
+                        <ContentAdd/>
+                    </FloatingActionButton>
+                </div>
             </div>
         )
     }
@@ -84,15 +92,14 @@ class App extends Component {
 
 export default connect(
     state => ({
-        items: state.items,
-        board: state.board
+        items: state.items
     }),
     dispatch => ({
-        onAddTask: (taskName) => {
-            dispatch({type: 'ADD_ITEM', item: taskName})
+        onAddTask: (taskName, id) => {
+            dispatch({type: 'ADD_ITEM', item: taskName, id: id})
         },
-        onDeleteTask: (id) => {
-            dispatch({type: 'DELETE_ITEM', item: id})
+        onAddBoard: (boardName) => {
+            dispatch({type: 'ADD_BOARD', boardName: boardName})
         }
     })
 )(App);

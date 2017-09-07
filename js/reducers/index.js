@@ -4,7 +4,6 @@ import board from './board';
 
 export  default combineReducers(
     {
-        items,
-        board
+        items
     }
 )

@@ -23947,7 +23947,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _reactTapEventPlugin2.default)();
 
 var store = (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
 _reactDom2.default.render(_react2.default.createElement(
     _reactHotLoader.AppContainer,
     null,
@@ -25836,7 +25835,7 @@ var App = function (_Component) {
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
         _this.addTask = _this.addTask.bind(_this);
-        _this.deleteTask = _this.deleteTask.bind(_this);
+        _this.addBoard = _this.addBoard.bind(_this);
         _this.state = {
             validation: false
         };
@@ -25845,11 +25844,10 @@ var App = function (_Component) {
 
     _createClass(App, [{
         key: 'addTask',
-        value: function addTask() {
+        value: function addTask(i) {
             var taskText = this.refs.taskInput.input.value;
-            console.log(this.props);
             if (taskText) {
-                this.props.onAddTask(taskText);
+                this.props.onAddTask(taskText, i);
                 this.refs.taskInput.input.value = null;
                 this.setState({
                     validation: false
@@ -25863,24 +25861,22 @@ var App = function (_Component) {
     }, {
         key: 'addBoard',
         value: function addBoard() {
-
-            this.props.onAddBoard();
-        }
-    }, {
-        key: 'deleteTask',
-        value: function deleteTask(id) {
-            this.props.onDeleteTask(id);
+            var boardText = this.refs.board.input.value;
+            this.props.onAddBoard(boardText);
         }
     }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
-            console.log(this.props.board.map);
+            // console.log(this.props.items.table);
             return _react2.default.createElement(
                 'div',
                 { className: 'wrapper' },
-                this.props.board.map(function (board, i) {
+                this.props.items.table.map(function (item, i) {
+                    // item.tasks.push('hello')
+                }),
+                this.props.items.table.map(function (item, i) {
                     return _react2.default.createElement(
                         'div',
                         { className: 'board', key: i },
@@ -25895,10 +25891,10 @@ var App = function (_Component) {
                                     null,
                                     _react2.default.createElement(
                                         _Subheader2.default,
-                                        null,
-                                        board
+                                        { className: 'header' },
+                                        item.name
                                     ),
-                                    _this2.props.items.map(function (item, i) {
+                                    item.tasks.map(function (item, i) {
                                         return _react2.default.createElement(_List.ListItem, { key: i,
                                             primaryText: item
                                         });
@@ -25916,18 +25912,28 @@ var App = function (_Component) {
                                 }),
                                 _react2.default.createElement(
                                     _FloatingActionButton2.default,
-                                    { className: 'plusBtn', mini: true, onClick: _this2.addTask },
+                                    { className: 'plusBtn', mini: true, onClick: function onClick() {
+                                            _this2.addTask(i);
+                                        } },
                                     _react2.default.createElement(_add2.default, null)
                                 )
-                            ),
-                            _react2.default.createElement(
-                                _FloatingActionButton2.default,
-                                { onClick: _this2.addBoard, secondary: true },
-                                _react2.default.createElement(_add2.default, null)
                             )
                         )
                     );
-                })
+                }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'boardAdd' },
+                    _react2.default.createElement(_TextField2.default, {
+                        hintText: 'Add Board',
+                        ref: 'board'
+                    }),
+                    _react2.default.createElement(
+                        _FloatingActionButton2.default,
+                        { onClick: this.addBoard, secondary: true },
+                        _react2.default.createElement(_add2.default, null)
+                    )
+                )
             );
         }
     }]);
@@ -25937,16 +25943,15 @@ var App = function (_Component) {
 
 exports.default = (0, _reactRedux.connect)(function (state) {
     return {
-        items: state.items,
-        board: state.board
+        items: state.items
     };
 }, function (dispatch) {
     return {
-        onAddTask: function onAddTask(taskName) {
-            dispatch({ type: 'ADD_ITEM', item: taskName });
+        onAddTask: function onAddTask(taskName, id) {
+            dispatch({ type: 'ADD_ITEM', item: taskName, id: id });
         },
-        onDeleteTask: function onDeleteTask(id) {
-            dispatch({ type: 'DELETE_ITEM', item: id });
+        onAddBoard: function onAddBoard(boardName) {
+            dispatch({ type: 'ADD_BOARD', boardName: boardName });
         }
     };
 })(App);
@@ -50091,8 +50096,7 @@ var _board2 = _interopRequireDefault(_board);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
-    items: _items2.default,
-    board: _board2.default
+    items: _items2.default
 });
 
 /***/ }),
@@ -50105,11 +50109,23 @@ exports.default = (0, _redux.combineReducers)({
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = addItem;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var initialState = ['item1', 'item2'];
+var initialState = {
+    table: [{
+        name: 'Board1',
+        tasks: ['item1', 'item2']
+    }, {
+        name: 'Board2',
+        tasks: ['item1', 'item1', 'item1', 'itdasdasdem2']
+    }]
+};
+
 function addItem() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
     var action = arguments[1];
@@ -50117,12 +50133,20 @@ function addItem() {
 
     switch (action.type) {
         case 'ADD_ITEM':
-            return [].concat(_toConsumableArray(state), [action.item]);
+            return {
+                state: state
+            };
             break;
-        case 'DELETE_ITEM':
-            return [delete state.splice(action.item, 1)];
+        case 'ADD_BOARD':
+            return _extends({}, state, { table: [].concat(_toConsumableArray(state.table), [{
+                    name: action.boardName, tasks: ['item1']
+                }])
+            });
+
             break;
+
     }
+
     return state;
 }
 

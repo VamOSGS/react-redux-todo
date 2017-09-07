@@ -1,21 +1,45 @@
-const initialState = [
-    'item1',
-    'item2'
-]
+const initialState = {
+    table: [
+        {
+            name: 'Board1',
+            tasks: [
+                'item1',
+                'item2'
+            ]
+        },
+        {
+            name: 'Board2',
+            tasks: [
+                'item1',
+                'item1',
+                'item1',
+                'itdasdasdem2'
+            ]
+        }
+    ]
+}
+
 export default function addItem(state = initialState, action) {
 
     switch (action.type) {
         case 'ADD_ITEM':
-            return [
-                ...state,
-                action.item
-            ];
+            return {
+                state
+            };
             break;
-        case 'DELETE_ITEM':
-            return [
-                delete state.splice(action.item,1),
-            ];
+        case 'ADD_BOARD':
+            return {
+                ...state, table: [...state.table, {
+                    name: action.boardName, tasks: [
+                        'item1'
+                    ]
+                }]
+            };
+
             break;
+
     }
+
     return state;
+
 }

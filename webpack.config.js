@@ -38,8 +38,12 @@ module.exports = {
                         {
                             loader: "css-loader",
                             options: { minimize: true }
-                        }, {
+                        },
+                        {
                             loader: "sass-loader"
+                        },
+                        {
+                            loader: "postcss-loader"
                         }
                     ],
                     fallback: "style-loader"
@@ -47,7 +51,9 @@ module.exports = {
             }
         ]
     },
-    plugins: [extractSass],
+    plugins: [
+        extractSass
+    ],
     stats: {
         colors: true
     },
