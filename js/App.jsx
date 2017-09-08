@@ -19,29 +19,38 @@ class App extends Component {
     }
 
     addTask(i) {
-        console.log(i, this.refs.taskInput.props)
-        let taskText = this.refs.taskInput.input.value;
+        let taskText = this.refs[`${i}`].input.value;
         if (taskText) {
             this.props.onAddTask(taskText, i);
-            this.refs.taskInput.input.value = null;
+            this.refs[`${i}`].input.value = null;
             this.setState({
-                open:false
+                open: false
             })
         } else {
             this.setState({
-                open:true
+                open: true
             })
         }
     }
 
     addBoard() {
         let boardText = this.refs.board.input.value;
-        this.props.onAddBoard(boardText);
-        this.refs.board.input.value = null;
+        if (boardText) {
+            this.props.onAddBoard(boardText);
+            this.refs.board.input.value = null;
+            this.setState({
+                open: false
+            })
+        }
+        else {
+            this.setState({
+                open: true
+            })
+        }
     }
 
     render() {
-        // console.log(this.props.items.table);
+        // console.log(this.props.items);
         return (
             <div className='wrapper'>
                 <Snackbar
@@ -72,7 +81,7 @@ class App extends Component {
                             <div className='Adding'>
                                 <TextField
                                     hintText="Add Task"
-                                    ref='taskInput'
+                                    ref={i}
 
                                 />
                                 <FloatingActionButton className='plusBtn' mini={true} onClick={() => {

@@ -23,9 +23,9 @@ export default function addItem(state = initialState, action) {
 
     switch (action.type) {
         case 'ADD_ITEM':
-            return {
-                state
-            };
+            let stateAT = state;
+            let a = stateAT.table[action.id].tasks.push(action.item);
+            return state;
             break;
         case 'ADD_BOARD':
             return {
@@ -35,9 +35,7 @@ export default function addItem(state = initialState, action) {
                     ]
                 }]
             };
-
             break;
-
     }
 
     return state;

@@ -26135,11 +26135,10 @@ var App = function (_Component) {
     _createClass(App, [{
         key: 'addTask',
         value: function addTask(i) {
-            console.log(i, this.refs.taskInput.props);
-            var taskText = this.refs.taskInput.input.value;
+            var taskText = this.refs['' + i].input.value;
             if (taskText) {
                 this.props.onAddTask(taskText, i);
-                this.refs.taskInput.input.value = null;
+                this.refs['' + i].input.value = null;
                 this.setState({
                     open: false
                 });
@@ -26153,15 +26152,24 @@ var App = function (_Component) {
         key: 'addBoard',
         value: function addBoard() {
             var boardText = this.refs.board.input.value;
-            this.props.onAddBoard(boardText);
-            this.refs.board.input.value = null;
+            if (boardText) {
+                this.props.onAddBoard(boardText);
+                this.refs.board.input.value = null;
+                this.setState({
+                    open: false
+                });
+            } else {
+                this.setState({
+                    open: true
+                });
+            }
         }
     }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
-            // console.log(this.props.items.table);
+            // console.log(this.props.items);
             return _react2.default.createElement(
                 'div',
                 { className: 'wrapper' },
@@ -26205,7 +26213,7 @@ var App = function (_Component) {
                                 { className: 'Adding' },
                                 _react2.default.createElement(_TextField2.default, {
                                     hintText: 'Add Task',
-                                    ref: 'taskInput'
+                                    ref: i
 
                                 }),
                                 _react2.default.createElement(
@@ -51398,18 +51406,16 @@ function addItem() {
 
     switch (action.type) {
         case 'ADD_ITEM':
-            return {
-                state: state
-            };
+            var stateAT = state;
+            var a = stateAT.table[action.id].tasks.push(action.item);
+            return state;
             break;
         case 'ADD_BOARD':
             return _extends({}, state, { table: [].concat(_toConsumableArray(state.table), [{
                     name: action.boardName, tasks: ['item1']
                 }])
             });
-
             break;
-
     }
 
     return state;
