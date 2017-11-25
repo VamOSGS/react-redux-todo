@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import 'normalize.less';
+body {
+    background-color: #20232a;
+    font-family: 'Source Sans Pro', sans-serif;
+    #root {
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10vh;
+            .home {
+                text-align: center;
+                form {
+                  input {
+                    background: none;
+                    color: white;
+                    border: none;
+                    border-bottom: 2px solid;
+                    font-size: 30px;
+                    padding: 5px;
+                  } 
+                  button {
+                    font-size: 25px;
+                    border: none;
+                    background: none;
+                    color: #61dafb;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    transition: .3s;
+                    &:hover {
+                      color: #4692a5;
+                    }
+                  }
+                }
+                nav {
+                  margin: 10px 0;
+                    a {
+                        margin: 0 5px;
+                        color: #f7f7f7;
+                        text-decoration: none;
+                        transition: .3s;
+                        &:hover {
+                          color: #999999;
+                        }
+                        &.active {
+                          color: #a7a7a7;
+                        }
+                    }
+                }
+            }
+            .list {
+              text-align: left;
+                li {
+                  font-size: 25px;
+                  margin: 7px;
+                  button {
+                    background: none;
+                    border: none;
+                    color: white;
+                    cursor: pointer;
+                    font-size: 20px;
+                    &:hover {
+                      color: #747881;
+                    }
+                  }
+                }
+                .done {
+                    color: #61dafb;
+                    text-decoration: line-through;
+                }
+                strong {
+                    color: #f7f7f7;
+                }
+            }
+            h1,
+            h3 {
+                color: #61dafb;
+                margin: 25px 0;
+            }
+        }
+    }
+}

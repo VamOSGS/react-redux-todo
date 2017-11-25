@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux';
-import items from './items';
-import board from './board';
+import todo from './todo';
 
 export  default combineReducers(
     {
-        items
+        todo
     }
 )

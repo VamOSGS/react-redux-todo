@@ -1,61 +1,66 @@
 var path = require('path');
 var webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const extractSass = new ExtractTextPlugin({
-    filename: "style.css",
-    disable: process.env.NODE_ENV === "development"
+const extractLess = new ExtractTextPlugin({
+    filename: "[name].css"
 });
+
+const port = 1337;
+
+
 module.exports = {
     entry: {
         'app': [
-            'babel-polyfill',
             'react-hot-loader/patch',
-            './js/index.js'
+            `webpack-dev-server/client?http://localhost:${port}`,
+            'webpack/hot/only-dev-server',
+            './js/index.jsx'
         ]
     },
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
     },
-    devServer: {
-        contentBase: path.join(__dirname, "build"),
-        compress: true,
-        port: 8080
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.jsx?$/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015', 'react']
-                },
 
+    module: {
+        loaders: [{
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        }, {
+            test: /\.less$/,
+            use: [{
+                loader: "style-loader"
             }, {
-                test: /\.scss$/,
-                use: extractSass.extract({
-                    use: [
-                        {
-                            loader: "css-loader",
-                            options: { minimize: true }
-                        },
-                        {
-                            loader: "sass-loader"
-                        },
-                        {
-                            loader: "postcss-loader"
-                        }
-                    ],
-                    fallback: "style-loader"
-                })
-            }
-        ]
+                loader: "css-loader"
+            }, {
+                loader: "less-loader"
+            }]
+        }, ]
     },
     plugins: [
-        extractSass
+        extractLess,
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NamedModulesPlugin()
     ],
+    resolve: {
+        modules: [
+            'node_modules',
+            path.resolve(__dirname, 'src'),
+        ],
+        extensions: ['.js', '.jsx', '.json', '.css'],
+    },
     stats: {
         colors: true
     },
-    devtool: 'source-map'
+    devServer: {
+        port,
+        inline: true,
+        hot: true,
+        compress: true,
+        historyApiFallback: true,
+        contentBase: path.join(__dirname, './build')
+    },
+    devtool: 'cheap-eval-source-map'
 };
+
