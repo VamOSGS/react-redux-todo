@@ -11,6 +11,7 @@ class AddItem extends Component {
     const task = this.TaskText.value;
     if (task) {
       this.props.onAddTask(task);
+      this.TaskText.value = '';
     }
   }
 
