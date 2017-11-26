@@ -5,13 +5,15 @@ import ListContainer from '../containers/ListContainer';
 import Done from './Done';
 import Active from './Active';
 
+const githubRouteConfig = route => window.location.host == "vamosgs.github.io" ? window.location.pathname+route : route
+
 const App = () => (
   <div className="wrapper">
     <Home />
     {console.log(window.location)}
-    <Route exact path="/" component={ListContainer} />
-    <Route path="/done" component={Done} />
-    <Route path="/active" component={Active} />
+    <Route exact path={githubRouteConfig('')} component={ListContainer} />
+    <Route path={githubRouteConfig('/done')} component={Done} />
+    <Route path={githubRouteConfig('/active')} component={Active} />
   </div>
 );
 

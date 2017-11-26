@@ -15,7 +15,7 @@ const initialState = [{
 	},
 ];
 				
-export default addItem = (state = initialState, action) => {
+const addItem = (state = initialState, action) => {
 	switch (action.type) {
 		case TEST:
 			return state;
@@ -62,4 +62,6 @@ export default addItem = (state = initialState, action) => {
 	}
 
 	return state;
-}
+};
+
+export default addItem;
