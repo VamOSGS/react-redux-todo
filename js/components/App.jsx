@@ -6,7 +6,16 @@ import Done from './Done';
 import Active from './Active';
 
 const defaultPath = "/react-redux-todo/build/";
-const githubRouteConfig = route => window.location.host == "vamosgs.github.io" ? defaultPath+route : route
+const githubRouteConfig = route => {
+  if (window.location.host == "vamosgs.github.io") {
+    console.log(defaultPath + route)
+    return defaultPath + route
+  }
+  else {
+    console.log(route)
+    return route
+  }
+}
 
 const App = () => (
   <div className="wrapper">
