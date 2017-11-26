@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import githubRouteConfig from '../githubconfig';
 
 const Nav = () => (
   <nav>
-    <Link href="/" to="/">View All</Link>
-    <Link href="/active" to="/active">Active</Link>
-    <Link href="/active" to="/done">Done</Link>
+    <Link  to={githubRouteConfig('')}>View All</Link>
+    <Link  to={githubRouteConfig('active')}>Active</Link>
+    <Link  to={githubRouteConfig('done')}>Done</Link>
   </nav>
 );
 

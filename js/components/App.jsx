@@ -4,26 +4,15 @@ import Home from './Home';
 import ListContainer from '../containers/ListContainer';
 import Done from './Done';
 import Active from './Active';
-
-const defaultPath = "/react-redux-todo/build/";
-const githubRouteConfig = route => {
-  if (window.location.host == "vamosgs.github.io") {
-    console.log(defaultPath + route)
-    return defaultPath + route
-  }
-  else {
-    console.log(route)
-    return route
-  }
-}
+import githubRouteConfig from '../githubconfig';
 
 const App = () => (
   <div className="wrapper">
     <Home />
     {console.log(window.location)}
     <Route exact path={githubRouteConfig('')} component={ListContainer} />
-    <Route path={githubRouteConfig('/done')} component={Done} />
-    <Route path={githubRouteConfig('/active')} component={Active} />
+    <Route path={githubRouteConfig('done')} component={Done} />
+    <Route path={githubRouteConfig('active')} component={Active} />
   </div>
 );
 
