@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Item from './Item';
 
 class List extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            todos: this.props.todoState.todo
+        }
+    }
+    
     handleDelete = id => event => {
         this.props.onDelete(id);
     }
@@ -13,7 +20,6 @@ class List extends Component {
         this.props.onSave(info);
     }
     handleToggle = id => event => {
-        console.log(id)
         this.props.onToggle(id);
     }
     render() {
@@ -38,6 +44,7 @@ class List extends Component {
                     list.map((item, i) =>
                         <Item key={i}
                             taskObj={item}
+                            task={item.task}
                             editItem={this.handleEdit}
                             saveItem={this.handleSave}
                             toggleItem={this.handleToggle}

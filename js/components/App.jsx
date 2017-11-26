@@ -9,7 +9,6 @@ import githubRouteConfig from '../githubconfig';
 const App = () => (
   <div className="wrapper">
     <Home />
-    {console.log(window.location)}
     <Route exact path={githubRouteConfig('')} component={ListContainer} />
     <Route path={githubRouteConfig('done')} component={Done} />
     <Route path={githubRouteConfig('active')} component={Active} />

@@ -34,6 +34,7 @@
   "dependencies": {
     "eslint": "^4.12.0",
     "eslint-plugin-es-beautifier": "^1.0.1",
+    "js-uuid": "^0.0.6",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
@@ -42,6 +43,7 @@
     "react-router-dom": "^4.2.2",
     "redux": "3.7.2",
     "redux-devtools-extension": "^2.13.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "uuid": "^3.1.0"
   }
 }
