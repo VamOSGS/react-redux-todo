@@ -5,7 +5,8 @@ import ListContainer from '../containers/ListContainer';
 import Done from './Done';
 import Active from './Active';
 
-const githubRouteConfig = route => window.location.host == "vamosgs.github.io" ? window.location.pathname+route : route
+const defaultPath = "/react-redux-todo/build/";
+const githubRouteConfig = route => window.location.host == "vamosgs.github.io" ? defaultPath+route : route
 
 const App = () => (
   <div className="wrapper">
