@@ -182,6 +182,17 @@ body #root .wrapper .list {
 body #root .wrapper .list li {
   font-size: 25px;
   margin: 7px;
+  display: flex;
+}
+body #root .wrapper .list li.done input {
+  color: #61dafb;
+}
+body #root .wrapper .list li input {
+  background: none;
+  color: white;
+  border: none;
+  border-bottom: 2px solid #cacaca52;
+  font-size: 20px;
 }
 body #root .wrapper .list li button {
   background: none;

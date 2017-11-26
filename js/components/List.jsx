@@ -19,9 +19,11 @@ class List extends Component {
     render() {
         const todos = this.props.todoState.todo;
         let list = todos;
+        let message = 'Nothing to do';
         switch (this.props.filter) {
             case 'done':
-                list = list.filter(item => item.done == true)
+                list = list.filter(item => item.done == true);
+                message = `You don't have completed tasks`;
                 break;
             case 'active':
                 list = list.filter(item => item.done == false)
@@ -32,7 +34,7 @@ class List extends Component {
 
         return (
             <ul className={'list'}>
-                {todos.length == 0 ? <h3>Nothing to do</h3> :
+                {list.length == 0 ? <h3>{message}</h3> :
                     list.map((item, i) =>
                         <Item key={i}
                             taskObj={item}

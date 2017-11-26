@@ -4,6 +4,7 @@
   "description": "Todo app with react and redux",
   "main": "index.js",
   "scripts": {
+    "nice": "eslint --fix .",
     "start": "node node_modules/webpack-dev-server/bin/webpack-dev-server.js --color --open",
     "build": "node node_modules/webpack/bin/webpack.js  --config webpack.prod.config.js"
   },
@@ -16,6 +17,10 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.28.4",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1",
     "extract-text-webpack-plugin": "^3.0.0",
     "hot-module-replacement": "^3.0.0",
     "less": "^2.7.3",
@@ -27,6 +32,8 @@
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-es-beautifier": "^1.0.1",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",

@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "airbnb",
+        "plugin:es-beautifier/standard"
+    ],
+    "rules": {
+        "linebreak-style": ["error", "windows"],
+        "react/require-default-props": 0,
+        "no-alert": 0,
+        "no-console": 0,
+        "no-underscore-dangle": 1
+    },
+    "globals": {
+        "document": true,
+        "alert": true,
+        "window": true
+    },
+    "plugins": [
+        "es-beautifier"
+    ]
+}

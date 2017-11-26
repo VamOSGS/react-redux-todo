@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ListContainer from '../containers/ListContainer';
-const Done = () => {
-    return <ListContainer filter={'done'} />
-}
+
+const Done = () => (<ListContainer filter="done" />);
 
 export default Done;
